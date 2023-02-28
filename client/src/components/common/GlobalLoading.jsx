@@ -1,45 +1,48 @@
-import {useSelector} from "react-redux";
-import {Paper, Box, LinearProgress, Toolbar} from "@mui/material"
+import { useSelector } from "react-redux";
+import { Paper, Box, LinearProgress, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const GlobalLoading = () => {
-    const {globalLoading} = useSelector((state) => state.globalLoading);
-    const [isLoading, setIsLoading] = useState(false)
+  const { globalLoading } = useSelector((state) => state.globalLoading);
 
-    useEffect(() => {
-        if(globalLoading) {
-            setIsLoading(true)
-        } else {
-            setTimeout(() => {
-                setIsLoading(false)
-            }, 1000)
-        }
-    }, [globalLoading])
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (globalLoading) {
+      setIsLoading(true);
+    } else {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+    }
+  }, [globalLoading]);
+
+
   return (
     <>
-        <Paper sx = {{
-            opacity: isLoading ? 1 : 0,
-            pointerEvents: "none",
-            transition: "all .3s ease",
-            position: "fixed",
-            width: "100vw",
-            height: "100vh",
-            zIndex: 999
+      <Paper sx={{
+        opacity: isLoading ? 1 : 0,
+        pointerEvents: "none",
+        transition: "all .3s ease",
+        position: "fixed",
+        width: "100vw",
+        height: "100vh",
+        zIndex: 999
+      }}>
+        <Toolbar />
+        <LinearProgress />
+        <Box sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)"
         }}>
-            <Toolbar></Toolbar>
-            <LinearProgress/>
-            <Box sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                tranform: "translate(-50%, -50%)"
-            }}>
-                <Logo/>
-            </Box>
-        </Paper>
+          <Logo />
+        </Box>
+      </Paper>
     </>
-  )
-}
+  );
+};
 
-export default GlobalLoading
+export default GlobalLoading;
